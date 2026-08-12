@@ -1,0 +1,119 @@
+import random
+
+# Lista de países (em letras minúsculas e sem acentos para facilitar)
+paises = [
+    "brasil", "portugal", "angola", "moçambique", "japao", "china", "canada",
+    "mexico", "argentina", "chile", "peru", "colombia", "uruguai", "paraguai",
+    "alemanha", "franca", "italia", "espanha", "inglaterra", "egito", "india"
+]
+
+# Desenhos da forca
+forca_desenho = [
+    """
+     ------
+     |    |
+     |
+     |
+     |
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |
+     |
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |    |
+     |
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |   /|
+     |
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |   /|\\
+     |
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |   /|\\
+     |   /
+     |
+    _|_
+    """,
+    """
+     ------
+     |    |
+     |    O
+     |   /|\\
+     |   / \\
+     |
+    _|_
+    """
+]
+
+def jogo_forca():
+    palavra = random.choice(paises).lower()
+    letras_descobertas = ["_"] * len(palavra)
+    letras_erradas = []
+    tentativas = 0
+    max_tentativas = len(forca_desenho) - 1
+
+    print("🌍 Bem-vindo ao Jogo da Forca - Países!")
+    print("Adivinhe o nome do país antes que o boneco seja enforcado.\n")
+
+    while tentativas < max_tentativas:
+        print(forca_desenho[tentativas])
+        print("Palavra: ", " ".join(letras_descobertas))
+        print("Letras erradas: ", " ".join(letras_erradas))
+
+        chute = input("Digite uma letra: ").lower()
+
+        # Validação de entrada
+        if not chute.isalpha() or len(chute) != 1:
+            print("⚠️ Digite apenas uma letra!")
+            continue
+        if chute in letras_descobertas or chute in letras_erradas:
+            print("⚠️ Você já tentou essa letra!")
+            continue
+
+        if chute in palavra:
+            for i, letra in enumerate(palavra):
+                if letra == chute:
+                    letras_descobertas[i] = chute
+            if "_" not in letras_descobertas:
+                print("\n🎉 Parabéns! Você venceu!")
+                print("O país era:", palavra.capitalize())
+                break
+        else:
+            letras_erradas.append(chute)
+            tentativas += 1
+
+    else:
+        print(forca_desenho[tentativas])
+        print("💀 Você perdeu! O país era:", palavra.capitalize())
+
+if __name__ == "__main__":
+    jogo_forca()

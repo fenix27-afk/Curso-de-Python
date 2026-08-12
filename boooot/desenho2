@@ -1,0 +1,39 @@
+import turtle
+import colorsys
+
+def mandala_colorida():
+    # Configuração da tela
+    tela = turtle.Screen()
+    tela.bgcolor("black")
+    tela.title("Mandala Colorida com Turtle")
+
+    # Define o modo de cor antes de criar a tartaruga
+    turtle.colormode(255)
+
+    # Configuração da tartaruga
+    t = turtle.Turtle()
+    t.speed(0)   # Velocidade máxima
+    t.width(2)
+
+    # Paleta de cores HSV -> RGB
+    num_cores = 50
+    cores = []
+    for i in range(num_cores):
+        cor = colorsys.hsv_to_rgb(i / num_cores, 1, 1)
+        cores.append(tuple(int(c * 255) for c in cor))
+
+    # Desenha a mandala
+    for i in range(360):
+        t.pencolor(cores[i % num_cores])
+        t.circle(120)
+        t.right(10)
+        t.forward(5)
+
+    t.hideturtle()
+    tela.mainloop()
+
+if __name__ == "__main__":
+    try:
+        mandala_colorida()
+    except turtle.Terminator:
+        print("Desenho interrompido.")

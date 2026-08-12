@@ -1,0 +1,40 @@
+import turtle
+import colorsys
+import random
+
+def desenho_espiral():
+    # Configuração da tela
+    tela = turtle.Screen()
+    tela.bgcolor("black")
+    tela.title("Desenho Bonito com Turtle")
+
+    # Configuração da tartaruga
+    t = turtle.Turtle()
+    t.speed(0)  # Velocidade máxima
+    t.width(2)
+    turtle.colormode(255)  # Permite cores RGB
+
+    # Gera uma paleta de cores suave usando HSV
+    num_cores = 36
+    cores = []
+    for i in range(num_cores):
+        cor = colorsys.hsv_to_rgb(i / num_cores, 1, 1)
+        cores.append(tuple(int(c * 255) for c in cor))
+
+    # Desenha a espiral
+    for i in range(360):
+        t.pencolor(cores[i % num_cores])
+        t.forward(i * 2)
+        t.right(59)  # Ângulo que cria o efeito
+        t.forward(i)
+        t.right(120)
+
+    # Finaliza
+    t.hideturtle()
+    tela.mainloop()
+
+if __name__ == "__main__":
+    try:
+        desenho_espiral()
+    except turtle.Terminator:
+        print("Desenho interrompido.")
