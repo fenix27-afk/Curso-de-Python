@@ -14,3 +14,4 @@ valor_total_compra = (quantidade_produto1 * valor_produto1) + (quantidade_produt
 print('--- Resumo da Compra ---')
 print(f'Quantidade total de produtos: {quantidade_produto}')
 print(f'Valor total da compra: R$ {valor_total_compra}')
+print('Ola mundo')
