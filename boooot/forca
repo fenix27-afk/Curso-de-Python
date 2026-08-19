@@ -1,10 +1,28 @@
 import random
 
-# Lista de países (em letras minúsculas e sem acentos para facilitar)
-paises = [
-    "brasil", "portugal", "angola", "moçambique", "japao", "china", "canada",
-    "mexico", "argentina", "chile", "peru", "colombia", "uruguai", "paraguai",
-    "alemanha", "franca", "italia", "espanha", "inglaterra", "egito", "india"
+# Lista de palavras para o jogo
+palavras = [
+    "abacaxi", "montanha", "computador", "girassol", "dinossauro",
+    "chocolate", "tempestade", "borboleta", "foguete", "pirata",
+    "castelo", "dragao", "aventura", "labirinto", "elefante",
+    "sorvete", "biblioteca", "cachoeira", "vampiro", "tesouro",
+    "arcoiris", "bicicleta", "astronauta", "floresta", "tartaruga",
+    "hamburguer", "telefone", "oceano", "vulcao", "pinguim",
+    "fantasma", "crocodilo", "princesa", "superheroi", "robo",
+    "violao", "pipoca", "televisao", "zebra", "macaco",
+    "girafa", "leao", "tigre", "coelho", "borracha",
+    "lapis", "caderno", "mochila", "professor", "escola",
+    "hospital", "aviao", "helicoptero", "submarino", "navio",
+    "trem", "onibus", "motocicleta", "caminhao", "pizza",
+    "sanduiche", "morango", "melancia", "banana", "abacate",
+    "laranja", "brigadeiro", "martelo", "tesoura", "chave",
+    "relogio", "oculos", "chapeu", "sapato", "camiseta",
+    "cobertor", "planeta", "estrela", "lua", "cometa",
+    "galaxia", "cavaleiro", "feiticeiro", "monstro", "zumbi",
+    "mapa", "espada", "dinheiro", "diamante", "coroa",
+    "rainha", "rei", "futebol", "guitarra", "flor",
+    "cachorro", "gato", "passaro", "macarrao", "sorvete",
+    "janela", "porta", "telefone", "camera", "internet"
 ]
 
 # Desenhos da forca
@@ -74,46 +92,63 @@ forca_desenho = [
     """
 ]
 
+
 def jogo_forca():
-    palavra = random.choice(paises).lower()
+    palavra = random.choice(palavras)
+
     letras_descobertas = ["_"] * len(palavra)
     letras_erradas = []
+
     tentativas = 0
     max_tentativas = len(forca_desenho) - 1
 
-    print("🌍 Bem-vindo ao Jogo da Forca - Países!")
-    print("Adivinhe o nome do país antes que o boneco seja enforcado.\n")
+    print("🎮 Bem-vindo ao Jogo da Forca!")
+    print("Adivinhe a palavra antes que o boneco seja enforcado!\n")
 
     while tentativas < max_tentativas:
+
         print(forca_desenho[tentativas])
-        print("Palavra: ", " ".join(letras_descobertas))
-        print("Letras erradas: ", " ".join(letras_erradas))
+        print("Palavra:", " ".join(letras_descobertas))
+        print("Letras erradas:", " ".join(letras_erradas))
 
-        chute = input("Digite uma letra: ").lower()
+        chute = input("\nDigite uma letra: ").lower()
 
-        # Validação de entrada
+        # Verifica se foi digitada apenas uma letra
         if not chute.isalpha() or len(chute) != 1:
             print("⚠️ Digite apenas uma letra!")
             continue
+
+        # Verifica se a letra já foi usada
         if chute in letras_descobertas or chute in letras_erradas:
             print("⚠️ Você já tentou essa letra!")
             continue
 
+        # Se a letra estiver na palavra
         if chute in palavra:
+
             for i, letra in enumerate(palavra):
                 if letra == chute:
                     letras_descobertas[i] = chute
+
+            print("✅ Boa! A letra está na palavra!")
+
+            # Verifica se ganhou
             if "_" not in letras_descobertas:
-                print("\n🎉 Parabéns! Você venceu!")
-                print("O país era:", palavra.capitalize())
+                print("\n🎉 PARABÉNS! VOCÊ VENCEU!")
+                print("A palavra era:", palavra.upper())
                 break
+
+        # Se a letra estiver errada
         else:
             letras_erradas.append(chute)
             tentativas += 1
+            print("❌ Essa letra não está na palavra!")
 
     else:
         print(forca_desenho[tentativas])
-        print("💀 Você perdeu! O país era:", palavra.capitalize())
+        print("\n💀 VOCÊ PERDEU!")
+        print("A palavra era:", palavra.upper())
+
 
 if __name__ == "__main__":
     jogo_forca()
